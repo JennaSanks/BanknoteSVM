@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Banknote Authentication</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #234e70;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: bold;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .counterfeit {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .error {
+            margin-top: 20px;
+            color: #b91c1c;
+            text-align: center;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Banknote Authentication</h1>
+
+        <p>
+            Enter the four numerical features to classify a banknote
+            using a Linear Support Vector Machine.
+        </p>
+
+        <form method="POST">
+            <label for="variance">Variance</label>
+            <input
+                type="number"
+                step="any"
+                id="variance"
+                name="variance"
+                value="{{ values.variance }}"
+                required
+            >
+
+            <label for="skewness">Skewness</label>
+            <input
+                type="number"
+                step="any"
+                id="skewness"
+                name="skewness"
+                value="{{ values.skewness }}"
+                required
+            >
+
+            <label for="curtosis">Curtosis</label>
+            <input
+                type="number"
+                step="any"
+                id="curtosis"
+                name="curtosis"
+                value="{{ values.curtosis }}"
+                required
+            >
+
+            <label for="entropy">Entropy</label>
+            <input
+                type="number"
+                step="any"
+                id="entropy"
+                name="entropy"
+                value="{{ values.entropy }}"
+                required
+            >
+
+            <button type="submit">Classify Banknote</button>
+        </form>
+
+        {% if result %}
+            <div class="result {% if result == 'Counterfeit Banknote' %}counterfeit{% endif %}">
+                Prediction: {{ result }}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <p class="note">
+            Educational demonstration only. The model classifies
+            numerical features and does not directly inspect a banknote image.
+        </p>
+    </div>
+</body>
+</html>
